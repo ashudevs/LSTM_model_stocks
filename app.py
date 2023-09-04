@@ -1,9 +1,10 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import pandas_datareader as data
+from pandas_datareader import data as pdr
 from keras.models import load_model
 import streamlit as st
+import yfinance as yf
 
 
 start = '2010-01-01'
@@ -13,8 +14,10 @@ end  = '2019-12-31'
 
 st.title('Stock Trend prediction')
 
+yf.pdr_override()
 user_input = st.text_input('Enter Stock Ticker ' , 'AAPL')
-df = data.DataReader(user_input , 'yahoo' , start , end)
+#df = data.DataReader(user_input , 'yahoo' , start , end)
+df = pdr.get_data_yahoo(user_input, start="2010-01-01", end="2019-12-31")
 
 
 #Describing  Data
